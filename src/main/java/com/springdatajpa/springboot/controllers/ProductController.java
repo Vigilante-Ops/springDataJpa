@@ -65,4 +65,23 @@ public class ProductController
         return productRepository.findByDateCreatedBetween(sDate,eDate);
 
     }
+    @GetMapping("/queryn")
+    public Product getProductQuery(@RequestParam String name,@RequestParam Long id)
+    {
+        return productRepository.byNameQuery(name,id);
+
+    }
+    @GetMapping("/querynaming")
+    public Product getProductNamingQuery(@RequestParam String name,@RequestParam Long id)
+    {
+        return productRepository.byNameQuerynaming(name,id);
+
+    }
+
+    @GetMapping("/native")
+    public Product nativeQ(@RequestParam String name)
+    {
+        return productRepository.nativeQuery(name);
+
+    }
 }
