@@ -14,6 +14,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
+@NamedQuery(name = "Product.findXP",query = "select p from Product p where name=?1")
+@NamedNativeQuery(name = "Product.findYP",query ="select * from products where product_name=?1",resultClass = Product.class)
 @Table(name = "products",
         schema = "ecommerce",
         uniqueConstraints = {

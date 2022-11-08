@@ -29,4 +29,7 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
 
     @Query(value = "select * from products where product_name=:name",nativeQuery = true)
     public Product nativeQuery(String name);
+
+    public Product findXP(String name);
+    public Product findYP(String name);
 }

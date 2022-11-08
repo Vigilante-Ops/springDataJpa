@@ -84,4 +84,16 @@ public class ProductController
         return productRepository.nativeQuery(name);
 
     }
+    @GetMapping("/namedq")
+    public Product namedQ(@RequestParam String name)
+    {
+        return productRepository.findXP(name);
+
+    }
+    @GetMapping("/nativenamedq")
+    public Product nativenamedQ(@RequestParam String name)
+    {
+        return productRepository.findYP(name);
+
+    }
 }
