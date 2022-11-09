@@ -1,8 +1,12 @@
 package com.springdatajpa.springboot.controllers;
 
+import com.springdatajpa.springboot.Exceptions.ValidIP;
+import com.springdatajpa.springboot.entity.PaginationResponse;
 import com.springdatajpa.springboot.entity.Product;
 import com.springdatajpa.springboot.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -18,6 +22,8 @@ public class ProductController
 
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private PaginationResponse paginationResponse;
 
     @GetMapping("/byname")
     public Product getProductByName(@RequestParam String name)
@@ -94,6 +100,20 @@ public class ProductController
     public Product nativenamedQ(@RequestParam String name)
     {
         return productRepository.findYP(name);
+
+    }
+    @GetMapping("/pagination")
+    public PaginationResponse pagination(@RequestParam int pageNo,int pageSize)
+    {
+        if(pageNo<0)
+        {
+            throw new ValidIP("page number less than 0");
+        }
+        Pageable pageable= PageRequest.of(pageNo,pageSize);
+        paginationResponse.setProducts(productRepository.findAll(pageable).getContent());
+        paginationResponse.setTotalPageSize(productRepository.findAll(pageable).getTotalPages());
+
+        return paginationResponse;
 
     }
 }
