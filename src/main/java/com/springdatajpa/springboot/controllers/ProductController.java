@@ -7,6 +7,7 @@ import com.springdatajpa.springboot.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -103,7 +104,7 @@ public class ProductController
 
     }
     @GetMapping("/pagination")
-    public PaginationResponse pagination(@RequestParam int pageNo,int pageSize)
+    public PaginationResponse pagination(@RequestParam int pageNo,@RequestParam  int pageSize)
     {
         if(pageNo<0)
         {
@@ -114,6 +115,25 @@ public class ProductController
         paginationResponse.setTotalPageSize(productRepository.findAll(pageable).getTotalPages());
 
         return paginationResponse;
+
+    }
+    @GetMapping("/sortasc")
+    public List<Product> sortingASC()
+    {
+        Sort sortbyprice=Sort.by("price").descending();
+        Sort sortbydatec=Sort.by("dateCreated").descending();
+
+        Sort groupsort=sortbyprice.and(sortbydatec);
+        return productRepository.findAll(groupsort);
+
+    }
+    @GetMapping("/pagnsort")
+    public List<Product> paginationSorting(@RequestParam int pageNo,@RequestParam  int pageSize)
+    {
+        Sort sortbyprice=Sort.by("price").descending();
+        Pageable pageable=PageRequest.of(pageNo,pageSize,sortbyprice);
+
+        return productRepository.findAll(pageable).getContent();
 
     }
 }
