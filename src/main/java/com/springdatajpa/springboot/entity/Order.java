@@ -43,8 +43,7 @@ public class Order
     @UpdateTimestamp
     private LocalDateTime lastUpdated;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "billing_address_id",referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "order",fetch = FetchType.LAZY)
     private Address billingAddress;
 
 

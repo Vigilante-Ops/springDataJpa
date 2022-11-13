@@ -1,36 +1,40 @@
 package com.springdatajpa.springboot.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "addresses")
+@Getter
+@Setter
+@ToString
 public class Address
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @JsonProperty("id")
     private Long id;
 
     @Column(name="street")
-    @JsonProperty("street")
     private String street;
 
-    @JsonProperty("city")
     @Column(name = "city")
     private String city;
 
     @Column(name = "state")
-    @JsonProperty("state")
     private String state;
 
     @Column(name = "country")
-    @JsonProperty("country")
     private String country;
 
     @Column(name = "zip_code")
-    @JsonProperty("zipCode")
     private String zipCode;
+
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id",referencedColumnName = "id")
+    private Order order;
 }
