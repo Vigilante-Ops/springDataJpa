@@ -48,7 +48,7 @@ public class Order
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "order")
     private Address billingAddress;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id",referencedColumnName = "id")
     private List<OrderItem> orderItems=new ArrayList<>();
 
