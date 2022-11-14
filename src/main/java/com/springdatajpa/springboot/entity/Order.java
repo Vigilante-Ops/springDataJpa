@@ -8,6 +8,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -43,8 +45,12 @@ public class Order
     @UpdateTimestamp
     private LocalDateTime lastUpdated;
 
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "order",fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "order")
     private Address billingAddress;
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id",referencedColumnName = "id")
+    private List<OrderItem> orderItems=new ArrayList<>();
 
 
 

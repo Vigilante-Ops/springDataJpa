@@ -27,7 +27,7 @@ public class Product
 {
 
 @Id
-@GeneratedValue(strategy = GenerationType.AUTO)
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long id;
 private String sku;
 @Column(name = "productName",nullable = false)

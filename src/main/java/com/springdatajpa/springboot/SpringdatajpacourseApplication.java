@@ -1,12 +1,17 @@
 package com.springdatajpa.springboot;
 
+import com.springdatajpa.springboot.entity.Address;
+import com.springdatajpa.springboot.entity.Order;
+import com.springdatajpa.springboot.entity.OrderItem;
 import com.springdatajpa.springboot.entity.Product;
+import com.springdatajpa.springboot.repository.OrderRepository;
 import com.springdatajpa.springboot.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,6 +24,8 @@ public class SpringdatajpacourseApplication implements CommandLineRunner
 
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired
+	private OrderRepository orderRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringdatajpacourseApplication.class, args);
@@ -26,6 +33,8 @@ public class SpringdatajpacourseApplication implements CommandLineRunner
 
 	@Override
 	public void run(String... args) throws Exception {
+
+
 
 		/*Below code for save and update
 		Product product=new Product();
@@ -48,10 +57,13 @@ public class SpringdatajpacourseApplication implements CommandLineRunner
 
 
 		//Save all
-		/*Product product=new Product();
+
+/*
+
+		Product product=new Product();
 		product.setName("Hp victus");
 		product.setActive(true);
-		product.setPrice(new BigDecimal(123));
+		product.setPrice(new BigDecimal(100));
 		product.setSku("SkuTestmod");
 		product.setImageUrl("imgurl");
 		product.setDescription("this is gaming laptop");
@@ -59,12 +71,12 @@ public class SpringdatajpacourseApplication implements CommandLineRunner
 		Product product2=new Product();
 		product2.setName("Dell alienware");
 		product2.setActive(true);
-		product2.setPrice(new BigDecimal(123));
+		product2.setPrice(new BigDecimal(200));
 		product2.setSku("SkuTestmod2");
 		product2.setImageUrl("imgurl2");
 		product2.setDescription("pentagon");
-		productRepository.saveAll(List.of(product,product2));*/
-
+		productRepository.saveAll(List.of(product,product2));
+*/
         /*FindAll
 		List<Product> products= productRepository.findAll();
 		products.forEach(x-> System.out.println(x));*/
@@ -88,6 +100,36 @@ public class SpringdatajpacourseApplication implements CommandLineRunner
 
 
 
+		OrderItem orderItem1=new OrderItem();
+		orderItem1.setPrice(productRepository.findById(1L).get().getPrice());
+		orderItem1.setProduct(productRepository.findById(1L).get());
+		orderItem1.setQuantity(2);
+		orderItem1.setImageUrl("imageurl1");
+
+
+		OrderItem orderItem2=new OrderItem();
+		orderItem2.setPrice(productRepository.findById(2L).get().getPrice());
+		orderItem2.setProduct(productRepository.findById(2L).get());
+		orderItem2.setQuantity(4);
+		orderItem2.setImageUrl("imageurl2");
+
+		Address address=new Address();
+		address.setCity("Kanpur");
+		address.setCountry("India");
+		address.setState("UP");
+		address.setStreet("Avas vikas");
+		address.setZipCode("201806");
+
+
+		Order order=new Order();
+		order.setBillingAddress(address);
+		order.setStatus("delievered");
+		order.setTotalQuantity(1);
+		order.setTotalPrice(10000);
+		order.setOrderTrackingNumber("track-01");
+		order.getOrderItems().addAll(List.of(orderItem1,orderItem2));
+
+		orderRepository.save(order);
 
 
 	}
