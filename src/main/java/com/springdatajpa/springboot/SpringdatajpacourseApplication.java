@@ -99,6 +99,7 @@ public class SpringdatajpacourseApplication implements CommandLineRunner
 		//System.out.println(productRepository.existsById(8L));
 
 
+		/*
 
 		OrderItem orderItem1=new OrderItem();
 		orderItem1.setPrice(productRepository.findById(1L).get().getPrice());
@@ -129,7 +130,7 @@ public class SpringdatajpacourseApplication implements CommandLineRunner
 		order.setOrderTrackingNumber("track-01");
 		order.getOrderItems().addAll(List.of(orderItem1,orderItem2));
 
-		orderRepository.save(order);
+		orderRepository.save(order);*/
 
 
 	}
