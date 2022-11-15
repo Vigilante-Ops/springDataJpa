@@ -41,6 +41,9 @@ private LocalDateTime dateCreated;
 @UpdateTimestamp
 private LocalDateTime lastUpdated;
 
+@ManyToOne(fetch = FetchType.LAZY)
+@JoinColumn(name = "category",referencedColumnName = "id")
+private ProductCategory productCategory;
 
 
 
