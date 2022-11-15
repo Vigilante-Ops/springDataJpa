@@ -20,7 +20,7 @@ public class ProductCategory {
 
     private String categoryDescription;
 
-    @OneToMany(mappedBy = "productCategory",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "productCategory",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Product> products;
 
 }
