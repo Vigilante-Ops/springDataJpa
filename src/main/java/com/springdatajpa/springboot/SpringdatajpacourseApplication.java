@@ -1,11 +1,9 @@
 package com.springdatajpa.springboot;
 
-import com.springdatajpa.springboot.entity.Address;
-import com.springdatajpa.springboot.entity.Order;
-import com.springdatajpa.springboot.entity.OrderItem;
-import com.springdatajpa.springboot.entity.Product;
+import com.springdatajpa.springboot.entity.*;
 import com.springdatajpa.springboot.repository.OrderRepository;
 import com.springdatajpa.springboot.repository.ProductRepository;
+import com.springdatajpa.springboot.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,6 +24,8 @@ public class SpringdatajpacourseApplication implements CommandLineRunner
 	private ProductRepository productRepository;
 	@Autowired
 	private OrderRepository orderRepository;
+	@Autowired
+	private UserRepository userRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringdatajpacourseApplication.class, args);
@@ -131,6 +131,22 @@ public class SpringdatajpacourseApplication implements CommandLineRunner
 		order.getOrderItems().addAll(List.of(orderItem1,orderItem2));
 
 		orderRepository.save(order);*/
+
+
+		User user=new User();
+		user.setEmail("dixitaman8@gmail.com");
+		user.setFirstName("Aman");
+		user.setLastName("Dixit");
+		user.setPassword("adxt1999");
+
+		Role db=new Role();
+		db.setName("DB");
+
+		Role vm=new Role();
+		vm.setName("VM");
+
+		user.getRoles().addAll(List.of(vm,db));
+		userRepository.save(user);
 
 
 	}
